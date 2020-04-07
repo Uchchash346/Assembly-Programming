@@ -1,0 +1,38 @@
+.MODEL SMALL 
+.STACK 100H 
+
+.DATA
+CAPITAL DB 'ALL UPPER CASES FROM A TO Z : $' 
+
+.CODE
+MAIN PROC  
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    LEA DX,CAPITAL
+    MOV AH,9
+    INT 21H 
+    
+    MOV CX,26   ;INITIALIZE CX
+    
+    MOV AH,2
+    MOV DL,41H 
+    
+    WHILE_LOOP:
+    CMP CX,0
+    
+    JE END_LOOP
+    
+    INT 21H 
+    INC DL
+    DEC CX
+    
+    JMP WHILE_LOOP
+    
+    END_LOOP:
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN
+    
